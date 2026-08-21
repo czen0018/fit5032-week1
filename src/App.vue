@@ -1,47 +1,51 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+const books = [
+  { title: 'To Kill a Mockingbird', author: 'Harper Lee' },
+  { title: '1984', author: 'George Orwell' },
+  { title: "Harry Potter and the Sorcerer's Stone", author: 'J.K. Rowling' },
+  { title: 'The Lord of the Rings', author: 'J.R.R. Tolkien' },
+  { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' }
+]
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
   <main>
-    <TheWelcome />
+    <h1>Library Book List</h1>
+
+    <ul>
+      <li
+        v-for="book in books"
+        :key="book.title"
+        :title="`Author: ${book.author}`"
+        :class="{ highlighted: book.author === 'George Orwell' }"
+        :style="{
+          fontWeight: book.author === 'George Orwell' ? 'bold' : 'normal'
+        }"
+      >
+        {{ book.title }} by {{ book.author }}
+      </li>
+    </ul>
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+main {
+  font-family: Arial, sans-serif;
+  padding: 30px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+h1 {
+  margin-bottom: 20px;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+li {
+  margin: 10px 0;
+  font-size: 18px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.highlighted {
+  background-color: yellow;
+  padding: 6px;
+  border-radius: 4px;
 }
 </style>
